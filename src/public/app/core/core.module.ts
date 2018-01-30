@@ -1,7 +1,7 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
-
+import { DataService } from './data.service';
 import { DataFilterService } from './data-filter.service';
 import { Sorter } from './sorter';
 import { TrackByService } from './trackby.service';
