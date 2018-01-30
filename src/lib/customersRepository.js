@@ -25,6 +25,19 @@ class CustomersRepository {
         });
     }
 
+
+        // get a  customer
+        getCustomer(id, callback) {
+            console.log('*** CustomersRepository.getCustomer');
+            Customer.findById(id, (err, customer) => {
+                if (err) { 
+                    console.log(`*** CustomersRepository.getCustomer error: ${err}`); 
+                    return callback(err); 
+                }
+                callback(null, customer);
+            });
+        }
+
 }
 
 module.exports = new CustomersRepository();
