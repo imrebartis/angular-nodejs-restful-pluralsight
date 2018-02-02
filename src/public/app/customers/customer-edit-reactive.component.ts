@@ -8,18 +8,21 @@ import { ValidationService } from '../shared/validation.service';
 
 @Component({
   selector: 'customer-edit-reactive',
-  templateUrl: './customer-edit-reactive.component.html'
+  templateUrl: './customer-edit-reactive.component.html',
+  providers: [DataService]
 })
 export class CustomerEditReactiveComponent implements OnInit {
 
   customerForm: FormGroup;
   customer: ICustomer = {
+    _id: '',
     firstName: '',
     lastName: '',
     gender: '',
     address: '',
     email: '',
     city: '',
+    stateId: 0,
     zip: 0
   };
   states: IState[];
