@@ -5,8 +5,10 @@ import { DataService } from '../core/data.service';
 import { ICustomer, IState } from '../shared/interfaces';
 
 @Component({
+  moduleId: module.id,
   selector: 'customer-edit',
-  templateUrl: './customer-edit.component.html'
+  templateUrl: './customer-edit.component.html',
+  providers: [DataService]
 })
 export class CustomerEditComponent implements OnInit {
 
@@ -17,6 +19,11 @@ export class CustomerEditComponent implements OnInit {
     address: '',
     email: '',
     city: '',
+    state: {
+      abbreviation: '',
+      name: ''
+    },
+    stateId: 0,
     zip: 0
   };
   states: IState[];
@@ -39,7 +46,13 @@ export class CustomerEditComponent implements OnInit {
   }
 
   getCustomer(id: string) {
-
+    this.dataService.getCustomer(id)
+        .subscribe((customer: ICustomer) => {
+          // this.customer = customer;
+          const cust = JSON.stringify(customer);
+          this.customer = JSON.parse(cust)
+        },
+        (err: any) => console.log(err));
   }
 
   getStates() {
