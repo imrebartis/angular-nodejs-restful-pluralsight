@@ -3,7 +3,7 @@ const customersRepo = require('../../../lib/customersRepository'),
       util = require('util');
 
 class CustomersController {
-
+    //  /api/customers
     constructor(router) {
         router.get('/', this.getCustomers.bind(this));
         router.get('/:id', this.getCustomer.bind(this));

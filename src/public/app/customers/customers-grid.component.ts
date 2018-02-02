@@ -13,7 +13,7 @@ import { TrackByService } from '../core/trackby.service';
   changeDetection: ChangeDetectionStrategy.OnPush 
 })
 export class CustomersGridComponent implements OnInit {
-
+// passing down a data-bound property from parent to child with @Input
   @Input() customers: ICustomer[] = [];
 
   constructor(private sorter: Sorter, public trackby: TrackByService) { }
