@@ -6,7 +6,7 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map'; 
 import 'rxjs/add/operator/catch';
 
-import { ICustomer, IOrder, IState } from '../shared/interfaces';
+import { ICustomer, IOrder, IState, ICustomerResponse } from '../shared/interfaces';
 
 @Injectable()
 export class DataService {
@@ -36,6 +36,16 @@ export class DataService {
     getStates() : Observable<IState[]> {
         return this.http.get('/api/states')
                    .map((res: Response) => res.json())
+                   .catch(this.handleError);
+    }
+
+    insertCustomer(customer: ICustomer) : Observable<ICustomer> {
+        return this.http.post(this.baseUrl, customer)
+                   .map((res: Response) => {
+                       const data = res.json();
+                       console.log('insertCustomer status: ' + data.status);
+                       return data.customer
+                   })
                    .catch(this.handleError);
     }
 
