@@ -13,6 +13,7 @@ import { ICustomer, IState } from '../shared/interfaces';
 export class CustomerEditComponent implements OnInit {
 
   customer: ICustomer = {
+    _id: '',
     firstName: '',
     lastName: '',
     gender: '',
@@ -60,7 +61,20 @@ export class CustomerEditComponent implements OnInit {
   }
   
   submit() {
-
+    if (this.customer._id) {
+      // this will be then a profile update
+    } else {
+      this.dataService.insertCustomer(this.customer)
+      .subscribe((customer: ICustomer) => {
+        if (customer) {
+          this.router.navigate(['/customers']);
+        }
+        else {
+          this.errorMessage = 'Unable to add customer';
+        }
+      },
+      (err: any) => console.log(err)); 
+    }
   }
   
   cancel(event: Event) {
