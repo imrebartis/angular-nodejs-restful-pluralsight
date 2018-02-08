@@ -8,6 +8,7 @@ class CustomersController {
         router.get('/', this.getCustomers.bind(this));
         router.get('/:id', this.getCustomer.bind(this));
         router.post('/', this.insertCustomer.bind(this));
+        router.put('/:id', this.updateCustomer.bind(this));
     }
 
     getCustomers(req, res) {
@@ -52,6 +53,29 @@ class CustomersController {
                         res.json({status: false, error: 'Insert failed', customer: null});
                     } else {
                         console.log('*** insertCustomer ok');
+                        res.json({ status: true, error: null, customer: customer });
+                    }
+                });
+            }
+        });
+    }
+
+    updateCustomer(req, res) {
+        console.log('*** updateCustomer');
+        console.log('*** req.body');
+        console.log(req.body);
+
+        statesRepo.getState(req.body.stateId, (err, state) => {
+            if (err) {
+                console.log('*** statesRepo.getState error: ' + util.inspect(err));
+                res.json({ status: false, error: 'State not found', customer: null });
+            } else {
+                customersRepo.updateCustomer(req.params.id, req.body, state, (err, customer) => {
+                    if (err) {
+                        console.log('*** customersRepo.updateCustomer error: ' + util.inspect(err));
+                        res.json({status: false, error: 'Update failed', customer: null});
+                    } else {
+                        console.log('*** updateCustomer ok');
                         res.json({ status: true, error: null, customer: customer });
                     }
                 });
