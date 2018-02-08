@@ -49,6 +49,15 @@ export class DataService {
                    .catch(this.handleError);
     }
 
+    updateCustomer(customer: ICustomer) : Observable<ICustomer> {
+        return this.http.put(this.baseUrl + '/' + customer._id, customer)
+                   .map((res: Response) => {
+                       const data = res.json();
+                       console.log('updateCustomer status: ' + data.status);
+                       return data.customer;
+                   })
+                   .catch(this.handleError);
+    }
 
     calculateCustomersOrderTotal(customers: ICustomer[]) {
         for (let customer of customers) {
